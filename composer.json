@@ -1,0 +1,47 @@
+{
+    "name": "fork/craft-alter",
+    "description": "Generates alt texts for images using different services that can be chosen from.",
+    "type": "craft-plugin",
+    "license": "mit",
+    "support": {
+        "email": "obj@fork.de",
+        "issues": "https://github.com/fork/craft-alter/issues?state=open",
+        "source": "https://github.com/fork/craft-alter",
+        "docs": "https://github.com/fork/craft-alter",
+        "rss": "https://github.com/fork/craft-alter/releases.atom"
+    },
+    "require": {
+        "php": ">=8.0.2",
+        "craftcms/cms": "^4.5.0"
+    },
+    "require-dev": {
+        "craftcms/ecs": "dev-main",
+        "craftcms/phpstan": "dev-main"
+    },
+    "autoload": {
+        "psr-4": {
+            "fork\\alter\\": "src/"
+        }
+    },
+    "extra": {
+        "handle": "alter",
+        "name": "alter",
+        "developer": "Fork",
+        "documentationUrl": "https://github.com/fork/craft-alter"
+    },
+    "scripts": {
+        "check-cs": "ecs check --ansi",
+        "fix-cs": "ecs check --ansi --fix",
+        "phpstan": "phpstan --memory-limit=1G"
+    },
+    "config": {
+        "sort-packages": true,
+        "platform": {
+            "php": "8.0.2"
+        },
+        "allow-plugins": {
+            "yiisoft/yii2-composer": true,
+            "craftcms/plugin-installer": true
+        }
+    }
+}
