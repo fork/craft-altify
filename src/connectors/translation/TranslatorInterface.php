@@ -1,8 +1,8 @@
 <?php
 
-namespace fork\alter\connectors\translation;
+namespace fork\alt\connectors\translation;
 
-use fork\alter\connectors\ConnectorInterface;
+use fork\alt\connectors\ConnectorInterface;
 
 interface TranslatorInterface extends ConnectorInterface
 {

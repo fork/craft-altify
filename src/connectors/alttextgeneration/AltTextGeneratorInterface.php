@@ -1,9 +1,9 @@
 <?php
 
-namespace fork\alter\connectors\alttextgeneration;
+namespace fork\alt\connectors\alttextgeneration;
 
 use craft\elements\Asset;
-use fork\alter\connectors\ConnectorInterface;
+use fork\alt\connectors\ConnectorInterface;
 
 interface AltTextGeneratorInterface extends ConnectorInterface
 {

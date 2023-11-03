@@ -1,6 +1,6 @@
 <?php
 
-namespace fork\alter\services;
+namespace fork\alt\services;
 
 use yii\base\Component;
 

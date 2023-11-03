@@ -1,6 +1,6 @@
 <?php
 
-namespace fork\alter;
+namespace fork\alt;
 
 use Craft;
 use craft\base\Element;
@@ -9,10 +9,10 @@ use craft\base\Model;
 use craft\base\Plugin as BasePlugin;
 use craft\elements\Asset;
 use craft\events\ModelEvent;
-use fork\alter\jobs\GenerateAltText;
-use fork\alter\models\Settings;
-use fork\alter\services\AltTextGeneration;
-use fork\alter\services\Translation;
+use fork\alt\jobs\GenerateAltText;
+use fork\alt\models\Settings;
+use fork\alt\services\AltTextGeneration;
+use fork\alt\services\Translation;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
@@ -20,7 +20,7 @@ use yii\base\Exception;
 use yii\base\InvalidConfigException;
 
 /**
- * alter plugin
+ * alt plugin
  *
  * @method static Plugin getInstance()
  * @method Settings getSettings()
@@ -75,7 +75,7 @@ class Plugin extends BasePlugin
     {
         $settings = $this->getSettings();
 
-        return Craft::$app->view->renderTemplate('alter/_settings.twig', [
+        return Craft::$app->view->renderTemplate('alt/_settings.twig', [
             'plugin' => $this,
             'settings' => $settings,
             'altTextGeneratorSuggestions' => $settings->getGeneratorSuggestions()

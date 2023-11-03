@@ -4,7 +4,7 @@
   </a>
 </div>
 
-# Alter
+# Alt text generator plugin for Craft CMS
 
 Generates alt texts for images using different services that can be chosen from.
 
@@ -21,7 +21,7 @@ You can install this plugin from the Plugin Store or with Composer.
 
 #### From the Plugin Store
 
-Go to the Plugin Store in your project’s Control Panel and search for “alter”. Then press “Install”.
+Go to the Plugin Store in your project’s Control Panel and search for “alt”. Then press “Install”.
 
 #### With Composer
 
@@ -32,10 +32,10 @@ Open your terminal and run the following commands:
 cd /path/to/my-project.test
 
 # tell Composer to load the plugin
-composer require fork/craft-alter
+composer require fork/craft-alt
 
 # tell Craft to install the plugin
-./craft plugin/install alter
+./craft plugin/install alt
 ```
 
 ## Usage
@@ -79,7 +79,7 @@ You can also set the model via ENV variable. This can be a class name, or one of
 ### Implementing own alt text generator services
 
 You can implement your own alt text generator service by implementing the interface
-`fork\alter\connectors\alttextgeneration\AltTextGeneratorInterface` and configuring this plugin to use it
+`fork\alt\connectors\alttextgeneration\AltTextGeneratorInterface` and configuring this plugin to use it
 by setting your own generator's class name via ENV variable.
 
 In a future release it should be possible to register alt text generators with an event.

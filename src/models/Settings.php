@@ -1,18 +1,18 @@
 <?php
 
-namespace fork\alter\models;
+namespace fork\alt\models;
 
 use Craft;
 use craft\base\Model;
 use craft\helpers\App;
-use fork\alter\connectors\alttextgeneration\AltTextGeneratorInterface;
-use fork\alter\connectors\alttextgeneration\HuggingFaceBlipBaseAltTextGenerator;
-use fork\alter\connectors\alttextgeneration\HuggingFaceBlipLargeAltTextGenerator;
-use fork\alter\Plugin;
+use fork\alt\connectors\alttextgeneration\AltTextGeneratorInterface;
+use fork\alt\connectors\alttextgeneration\HuggingFaceBlipBaseAltTextGenerator;
+use fork\alt\connectors\alttextgeneration\HuggingFaceBlipLargeAltTextGenerator;
+use fork\alt\Plugin;
 use yii\base\InvalidConfigException;
 
 /**
- * alter settings
+ * alt settings
  */
 class Settings extends Model
 {
@@ -43,7 +43,7 @@ class Settings extends Model
         }
 
         return [[
-            'label' => Craft::t('alter', 'Generators'),
+            'label' => Craft::t('alt', 'Generators'),
             'data' => $data
         ]];
     }
@@ -61,7 +61,7 @@ class Settings extends Model
         }
         if (!is_a($className, AltTextGeneratorInterface::class, true)) {
             throw new InvalidConfigException(Craft::t(
-                'alter',
+                'alt',
                 '{class} must implement {interface}',
                 [
                     'class' => Plugin::getInstance()->getSettings()->altTextGenerator,

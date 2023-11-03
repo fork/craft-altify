@@ -1,13 +1,13 @@
 <?php
 
-namespace fork\alter\connectors\alttextgeneration;
+namespace fork\alt\connectors\alttextgeneration;
 
 use Craft;
 use craft\elements\Asset;
 use craft\fs\Local;
-use fork\alter\exception\NotALocalFileException;
-use fork\alter\exception\NotAnImageException;
-use fork\alter\Plugin;
+use fork\alt\exception\NotALocalFileException;
+use fork\alt\exception\NotAnImageException;
+use fork\alt\Plugin;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Utils;

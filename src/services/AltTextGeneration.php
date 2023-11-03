@@ -1,13 +1,13 @@
 <?php
 
-namespace fork\alter\services;
+namespace fork\alt\services;
 
 use Craft;
 use craft\elements\Asset;
 use craft\errors\ElementNotFoundException;
-use fork\alter\exception\ImageNotSavedException;
-use fork\alter\exception\NotAnImageException;
-use fork\alter\Plugin;
+use fork\alt\exception\ImageNotSavedException;
+use fork\alt\exception\NotAnImageException;
+use fork\alt\Plugin;
 use Throwable;
 use yii\base\Component;
 use yii\base\Exception;
