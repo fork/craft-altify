@@ -54,6 +54,11 @@ class AbstractHuggingFaceAltTextGenerator implements AltTextGeneratorInterface
         $decoded = json_decode($body, true);
         $first = !empty($decoded) ? $decoded[0] : null;
 
-        return $first ? $first['generated_text'] : null;
+        return $first ? $this->filterWord("arafed", $first['generated_text']) : null;
+    }
+
+    protected function filterWord(string $word, string $text): string
+    {
+        return trim(str_replace($word, "", $text));
     }
 }
