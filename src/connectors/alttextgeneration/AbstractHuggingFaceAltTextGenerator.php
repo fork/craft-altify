@@ -6,7 +6,6 @@ use Craft;
 use craft\elements\Asset;
 use craft\fs\Local;
 use fork\alt\exception\NotALocalFileException;
-use fork\alt\exception\NotAnImageException;
 use fork\alt\Plugin;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
@@ -18,17 +17,12 @@ class AbstractHuggingFaceAltTextGenerator implements AltTextGeneratorInterface
     protected string $modelPath = '/models/Salesforce/blip-image-captioning-large';
 
     /**
-     * @throws NotAnImageException
      * @throws GuzzleException
      * @throws InvalidConfigException
      * @throws NotALocalFileException
      */
     public function generateAltTextForImage(Asset $image): ?string
     {
-        if ($image->kind !== Asset::KIND_IMAGE) {
-            throw new NotAnImageException("Asset is not an image");
-        }
-
         $fs = $image->getVolume()->getFs();
         if (!($fs instanceof Local)) {
             throw new NotALocalFileException("Image is not a local file");

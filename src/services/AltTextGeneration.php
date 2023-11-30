@@ -3,6 +3,7 @@
 namespace fork\alt\services;
 
 use Craft;
+use craft\base\Element;
 use craft\elements\Asset;
 use craft\errors\ElementNotFoundException;
 use fork\alt\exception\ImageNotSavedException;
@@ -30,12 +31,7 @@ class AltTextGeneration extends Component
     public function generateAltTextForImage(int $assetId): void
     {
         $image = Craft::$app->elements->getElementById($assetId);
-        if (!$image) {
-            throw new ElementNotFoundException("No asset with id $assetId exists");
-        }
-        if (!($image instanceof Asset)) {
-            throw new NotAnImageException("The element with id $assetId is not an asset");
-        }
+        self::validateImage($image);
         $image->alt = $this->generateAltText($image);
 
         if (!Craft::$app->elements->saveElement($image)) {
@@ -51,5 +47,24 @@ class AltTextGeneration extends Component
     public function generateAltText(Asset $image): string
     {
         return Plugin::getInstance()->getSettings()->getAltTextGenerator()->generateAltTextForImage($image);
+    }
+
+    /**
+     * @param ?Element $image
+     * @return void
+     * @throws ElementNotFoundException
+     * @throws NotAnImageException
+     */
+    public static function validateImage(?Element $image): void
+    {
+        if (!$image) {
+            throw new ElementNotFoundException("Image doesn't exist");
+        }
+        if (!($image instanceof Asset)) {
+            throw new NotAnImageException("Element is not an asset");
+        }
+        if ($image->kind !== Asset::KIND_IMAGE) {
+            throw new NotAnImageException("Asset is not an image");
+        }
     }
 }
