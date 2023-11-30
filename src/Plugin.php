@@ -91,7 +91,7 @@ class Plugin extends BasePlugin
             function (ModelEvent $event) {
                 $asset = $event->sender;
 
-                if ($asset->firstSave) {
+                if ($asset->firstSave && $asset->kind === Asset::KIND_IMAGE) {
                     Craft::$app->getQueue()->push(new GenerateAltText(['assetId' => $asset->id]));
                 }
             }
