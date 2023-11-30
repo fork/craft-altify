@@ -38,7 +38,7 @@ class GenerateAltTextController extends Controller
         try {
             Plugin::getInstance()->altTextGeneration->generateAltTextForImage($assetId);
         } catch (Exception|Throwable $e) {
-            Craft::$app->getSession()->addFlash($e->getMessage());
+            Craft::$app->getSession()->setError($e->getMessage());
         }
 
         return $this->asSuccess();
