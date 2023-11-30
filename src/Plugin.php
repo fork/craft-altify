@@ -10,8 +10,10 @@ use craft\base\Plugin as BasePlugin;
 use craft\elements\Asset;
 use craft\events\DefineHtmlEvent;
 use craft\events\ModelEvent;
+use craft\events\RegisterElementActionsEvent;
 use craft\helpers\Html;
-use fork\alt\jobs\GenerateAltText;
+use fork\alt\elements\actions\GenerateAltText as GenerateAltTextAction;
+use fork\alt\jobs\GenerateAltText as GenerateAltTextJob;
 use fork\alt\models\Settings;
 use fork\alt\services\AltTextGeneration;
 use fork\alt\services\Translation;
@@ -92,7 +94,7 @@ class Plugin extends BasePlugin
                 $asset = $event->sender;
 
                 if ($asset->firstSave && $asset->kind === Asset::KIND_IMAGE) {
-                    Craft::$app->getQueue()->push(new GenerateAltText(['assetId' => $asset->id]));
+                    Craft::$app->getQueue()->push(new GenerateAltTextJob(['assetId' => $asset->id]));
                 }
             }
         );
@@ -128,6 +130,14 @@ class Plugin extends BasePlugin
                 Craft::$app->getView()->registerJs($js);
 
                 $event->html .= Html::endTag('div');
+            }
+        );
+
+        Event::on(
+            Asset::class,
+            Element::EVENT_REGISTER_ACTIONS,
+            function (RegisterElementActionsEvent $event) {
+                $event->actions[] = GenerateAltTextAction::class;
             }
         );
     }
