@@ -26,6 +26,11 @@ class Settings extends Model
     public ?string $altTextGenerator = null;
     public ?string $apiToken = null;
 
+    public array $wordsBlackList = [
+        'arafed',
+        'araffe'
+    ];
+
     public function getApiToken(): ?string
     {
         return App::parseEnv($this->apiToken);

@@ -103,7 +103,7 @@ class Plugin extends BasePlugin
             Asset::class,
             Element::EVENT_DEFINE_ADDITIONAL_BUTTONS,
             function (DefineHtmlEvent $event) {
-                /** @see Asset */
+                /** @see Asset::getAdditionalButtons() */
                 $event->html = Html::beginTag('div', ['class' => 'btngroup']);
                 $event->html .= Html::button(Craft::t('alt', 'Generate alt text'), [
                     'id' => 'generateAltText-btn',
