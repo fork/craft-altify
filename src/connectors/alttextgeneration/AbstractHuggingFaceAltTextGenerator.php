@@ -5,14 +5,14 @@ namespace fork\alt\connectors\alttextgeneration;
 use Craft;
 use craft\elements\Asset;
 use craft\fs\Local;
+use fork\alt\connectors\AbstractHuggingFaceConnector;
 use fork\alt\exception\NotALocalFileException;
 use fork\alt\Plugin;
-use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Utils;
 use yii\base\InvalidConfigException;
 
-class AbstractHuggingFaceAltTextGenerator implements AltTextGeneratorInterface
+class AbstractHuggingFaceAltTextGenerator extends AbstractHuggingFaceConnector implements AltTextGeneratorInterface
 {
     protected string $modelPath = '/models/Salesforce/blip-image-captioning-large';
 
@@ -31,12 +31,7 @@ class AbstractHuggingFaceAltTextGenerator implements AltTextGeneratorInterface
         $fsPath = Craft::getAlias($fs->path);
         $absPath = $fsPath . DIRECTORY_SEPARATOR . $image->getPath();
 
-        $client = new Client([
-            'base_uri' => "https://api-inference.huggingface.co",
-            'headers' => [
-                'Authorization' => 'Bearer ' . Plugin::getInstance()->getSettings()->getApiToken()
-            ]
-        ]);
+        $client = $this->getClient();
 
         $body = Utils::tryFopen($absPath, 'r');
         $response = $client->post(

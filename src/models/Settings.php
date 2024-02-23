@@ -8,6 +8,8 @@ use craft\helpers\App;
 use fork\alt\connectors\alttextgeneration\AltTextGeneratorInterface;
 use fork\alt\connectors\alttextgeneration\HuggingFaceBlipBaseAltTextGenerator;
 use fork\alt\connectors\alttextgeneration\HuggingFaceBlipLargeAltTextGenerator;
+use fork\alt\connectors\translation\HuggingFaceOpusMtEnDeTranslator;
+use fork\alt\connectors\translation\TranslatorInterface;
 use fork\alt\Plugin;
 use yii\base\InvalidConfigException;
 
@@ -22,8 +24,13 @@ class Settings extends Model
         self::GENERATOR_HUGGING_FACE_BLIP_LARGE => HuggingFaceBlipLargeAltTextGenerator::class,
         self::GENERATOR_HUGGING_FACE_BLIP_BASE => HuggingFaceBlipBaseAltTextGenerator::class
     ];
+    public const TRANSLATOR_HUGGING_FACE_OPUS_MT = 'OPUS MT En -> De';
+    private const TRANSLATOR_MAPPING = [
+        self::TRANSLATOR_HUGGING_FACE_OPUS_MT => HuggingFaceOpusMtEnDeTranslator::class,
+    ];
 
     public ?string $altTextGenerator = null;
+    public ?string $altTextTranslator = null;
     public ?string $apiToken = null;
 
     public array $wordsBlackList = [
@@ -72,6 +79,31 @@ class Settings extends Model
                 [
                     'class' => Plugin::getInstance()->getSettings()->altTextGenerator,
                     'interface' => AltTextGeneratorInterface::class
+                ]
+            ));
+        }
+
+        return new $className;
+    }
+
+    /**
+     * @throws InvalidConfigException
+     */
+    public function getAltTextTranslator(): TranslatorInterface
+    {
+        $altTextTranslator = App::parseEnv($this->altTextTranslator);
+        if (class_exists($altTextTranslator)) {
+            $className = $altTextTranslator;
+        } else {
+            $className = self::TRANSLATOR_MAPPING[$this->altTextGenerator ?? self::TRANSLATOR_HUGGING_FACE_OPUS_MT];
+        }
+        if (!is_a($className, TranslatorInterface::class, true)) {
+            throw new InvalidConfigException(Craft::t(
+                'alt',
+                '{class} must implement {interface}',
+                [
+                    'class' => Plugin::getInstance()->getSettings()->altTextTranslator,
+                    'interface' => TranslatorInterface::class
                 ]
             ));
         }

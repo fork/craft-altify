@@ -103,33 +103,7 @@ class Plugin extends BasePlugin
             Asset::class,
             Element::EVENT_DEFINE_ADDITIONAL_BUTTONS,
             function (DefineHtmlEvent $event) {
-                /** @see Asset::getAdditionalButtons() */
-                $event->html = Html::beginTag('div', ['class' => 'btngroup']);
-                $event->html .= Html::button(Craft::t('alt', 'Generate alt text'), [
-                    'id' => 'generateAltText-btn',
-                    'class' => 'btn',
-                    'data' => [
-                        'icon' => 'wand',
-                    ],
-                    'aria' => [
-                        'label' => Craft::t('alt', 'Generate alt text'),
-                    ],
-                ]);
-                $js = <<<JS
-                $('#generateAltText-btn').on('click', () => {
-                        let id = document.querySelector("input[name='elementId']").value;
-                        const \$form = Craft.createForm().appendTo(Garnish.\$bod);
-                        \$form.append(Craft.getCsrfInput());
-                        $('<input/>', {type: 'hidden', name: 'action', value: 'alt/generate-alt-text'}).appendTo(\$form);
-                        $('<input/>', {type: 'hidden', name: 'assetId', value: id}).appendTo(\$form);
-                        $('<input/>', {type: 'submit', value: 'Submit'}).appendTo(\$form);
-                        \$form.submit();
-                        \$form.remove();
-                    });
-                JS;
-                Craft::$app->getView()->registerJs($js);
-
-                $event->html .= Html::endTag('div');
+                $this->appendAssetEditPageButtons($event);
             }
         );
 
@@ -140,5 +114,60 @@ class Plugin extends BasePlugin
                 $event->actions[] = GenerateAltTextAction::class;
             }
         );
+    }
+
+    /**
+     * @param DefineHtmlEvent $event
+     * @return void
+     */
+    private function appendAssetEditPageButtons(DefineHtmlEvent &$event): void
+    {
+        /** @see Asset::getAdditionalButtons() */
+        $event->html = Html::beginTag('div', ['class' => 'btngroup']);
+        $event->html .= Html::button(Craft::t('alt', 'Generate alt text'), [
+            'id' => 'generateAltText-btn',
+            'class' => 'btn',
+            'data' => [
+                'icon' => 'wand',
+            ],
+            'aria' => [
+                'label' => Craft::t('alt', 'Generate alt text'),
+            ],
+        ]);
+        $event->html .= Html::button(Craft::t('alt', 'Translate alt text'), [
+            'id' => 'translateAltText-btn',
+            'class' => 'btn',
+            'data' => [
+                'icon' => 'language',
+            ],
+            'aria' => [
+                'label' => Craft::t('alt', 'Translate alt text'),
+            ],
+        ]);
+        $js = <<<JS
+                $('#generateAltText-btn').on('click', () => {
+                        let id = document.querySelector("input[name='elementId']").value;
+                        const \$form = Craft.createForm().appendTo(Garnish.\$bod);
+                        \$form.append(Craft.getCsrfInput());
+                        $('<input/>', {type: 'hidden', name: 'action', value: 'alt/generate-alt-text'}).appendTo(\$form);
+                        $('<input/>', {type: 'hidden', name: 'assetId', value: id}).appendTo(\$form);
+                        $('<input/>', {type: 'submit', value: 'Submit'}).appendTo(\$form);
+                        \$form.submit();
+                        \$form.remove();
+                    });
+                $('#translateAltText-btn').on('click', () => {
+                        let id = document.querySelector("input[name='elementId']").value;
+                        const \$form = Craft.createForm().appendTo(Garnish.\$bod);
+                        \$form.append(Craft.getCsrfInput());
+                        $('<input/>', {type: 'hidden', name: 'action', value: 'alt/translate-alt-text'}).appendTo(\$form);
+                        $('<input/>', {type: 'hidden', name: 'assetId', value: id}).appendTo(\$form);
+                        $('<input/>', {type: 'submit', value: 'Submit'}).appendTo(\$form);
+                        \$form.submit();
+                        \$form.remove();
+                    });
+                JS;
+        Craft::$app->getView()->registerJs($js);
+
+        $event->html .= Html::endTag('div');
     }
 }
