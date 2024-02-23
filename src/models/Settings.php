@@ -28,7 +28,8 @@ class Settings extends Model
 
     public array $wordsBlackList = [
         'arafed',
-        'araffe'
+        'araffes',
+        'araffe',
     ];
 
     public function getApiToken(): ?string
