@@ -81,7 +81,8 @@ class Plugin extends BasePlugin
         return Craft::$app->view->renderTemplate('alt/_settings.twig', [
             'plugin' => $this,
             'settings' => $settings,
-            'altTextGeneratorSuggestions' => $settings->getGeneratorSuggestions()
+            'altTextGeneratorSuggestions' => $settings->getGeneratorSuggestions(),
+            'altTextTranslatorSuggestions' => $settings->getTranslatorSuggestions()
         ]);
     }
 

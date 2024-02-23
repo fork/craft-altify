@@ -3,15 +3,11 @@
 namespace fork\alt\controllers;
 
 use Craft;
-use craft\errors\ElementNotFoundException;
 use craft\errors\MissingComponentException;
 use craft\web\Controller;
-use fork\alt\exception\ImageNotSavedException;
-use fork\alt\exception\NotAnImageException;
 use fork\alt\Plugin;
 use Throwable;
 use yii\base\Exception;
-use yii\base\InvalidConfigException;
 use yii\web\BadRequestHttpException;
 use yii\web\Response;
 

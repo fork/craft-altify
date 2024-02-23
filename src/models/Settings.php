@@ -61,6 +61,23 @@ class Settings extends Model
         ]];
     }
 
+    public function getTranslatorSuggestions(): array
+    {
+        $data = [];
+
+        foreach (self::TRANSLATOR_MAPPING as $name => $hint) {
+            $data[] = [
+                'name' => $name,
+                'hint' => $hint
+            ];
+        }
+
+        return [[
+            'label' => Craft::t('alt', 'Translators'),
+            'data' => $data
+        ]];
+    }
+
     /**
      * @throws InvalidConfigException
      */
@@ -95,7 +112,7 @@ class Settings extends Model
         if (class_exists($altTextTranslator)) {
             $className = $altTextTranslator;
         } else {
-            $className = self::TRANSLATOR_MAPPING[$this->altTextGenerator ?? self::TRANSLATOR_HUGGING_FACE_OPUS_MT];
+            $className = self::TRANSLATOR_MAPPING[$this->altTextTranslator ?? self::TRANSLATOR_HUGGING_FACE_OPUS_MT];
         }
         if (!is_a($className, TranslatorInterface::class, true)) {
             throw new InvalidConfigException(Craft::t(

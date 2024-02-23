@@ -22,12 +22,12 @@ class AbstractHuggingFaceTranslator extends AbstractHuggingFaceConnector impleme
 
             $response = $client->post(
                 $this->modelPath,
-                ['body' => ['inputs' => $image->alt]]
+                ['json' => ['inputs' => $image->alt]]
             );
 
             $body = $response->getBody();
             $decoded = json_decode($body, true);
-            $altText = !empty($decoded) ? $decoded[0] : null;
+            $altText = !empty($decoded) ? $decoded[0]['translation_text'] : null;
         }
 
         return $altText;

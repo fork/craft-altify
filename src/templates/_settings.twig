@@ -15,6 +15,17 @@
 }) }}
 
 {{ forms.autosuggestField({
+  label: "Alt text translator service"|t('app'),
+  id: 'altTextTranslator',
+  name: 'altTextTranslator',
+  suggestEnvVars: true,
+  suggestions: altTextTranslatorSuggestions,
+  value: settings.altTextTranslator,
+  size: 60,
+  errors: settings.getErrors('altTextTranslator'),
+}) }}
+
+{{ forms.autosuggestField({
   label: "API token"|t('app'),
   id: 'apiToken',
   name: 'apiToken',
