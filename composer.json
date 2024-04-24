@@ -25,8 +25,8 @@
         }
     },
     "extra": {
-        "handle": "alt",
-        "name": "alt",
+        "handle": "altify",
+        "name": "altify",
         "developer": "Fork",
         "documentationUrl": "https://github.com/fork/craft-altify"
     },
