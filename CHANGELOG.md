@@ -1,4 +1,14 @@
-# Release Notes for alt
+# Release Notes for Altify
+
+# [1.0.0-beta.2] (2024-04-24)
+
+### Changes
+
+* The plugin is called Altify from now on
+
+### Features
+
+* Add translation services DeepL, Opus MT and Flan T5 small
 
 # [1.0.0-beta.1] (2024-02-23)
 
