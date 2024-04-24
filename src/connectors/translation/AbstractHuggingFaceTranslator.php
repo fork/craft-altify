@@ -6,9 +6,9 @@ use craft\elements\Asset;
 use fork\alt\connectors\AbstractHuggingFaceConnector;
 use GuzzleHttp\Exception\GuzzleException;
 
-class AbstractHuggingFaceTranslator extends AbstractHuggingFaceConnector implements TranslatorInterface
+abstract class AbstractHuggingFaceTranslator extends AbstractHuggingFaceConnector implements TranslatorInterface
 {
-    protected string $modelPath = '/models/Helsinki-NLP/opus-mt-en-de';
+    protected string $modelPath = '';
 
     /**
      * @throws GuzzleException

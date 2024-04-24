@@ -12,7 +12,7 @@ class AbstractHuggingFaceConnector implements ConnectorInterface
         return new Client([
             'base_uri' => "https://api-inference.huggingface.co",
             'headers' => [
-                'Authorization' => 'Bearer ' . Plugin::getInstance()->getSettings()->getApiToken(),
+                'Authorization' => 'Bearer ' . Plugin::getInstance()->getSettings()->getHuggingFaceApiToken(),
             ],
         ]);
     }

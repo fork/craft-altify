@@ -8,6 +8,7 @@ use craft\helpers\App;
 use fork\alt\connectors\alttextgeneration\AltTextGeneratorInterface;
 use fork\alt\connectors\alttextgeneration\HuggingFaceBlipBaseAltTextGenerator;
 use fork\alt\connectors\alttextgeneration\HuggingFaceBlipLargeAltTextGenerator;
+use fork\alt\connectors\translation\DeeplTranslator;
 use fork\alt\connectors\translation\HuggingFaceOpusMtEnDeTranslator;
 use fork\alt\connectors\translation\HuggingFaceT5SmallTranslator;
 use fork\alt\connectors\translation\TranslatorInterface;
@@ -25,16 +26,19 @@ class Settings extends Model
         self::GENERATOR_HUGGING_FACE_BLIP_LARGE => HuggingFaceBlipLargeAltTextGenerator::class,
         self::GENERATOR_HUGGING_FACE_BLIP_BASE => HuggingFaceBlipBaseAltTextGenerator::class
     ];
+    public const TRANSLATOR_DEEPL = 'DeepL';
     public const TRANSLATOR_HUGGING_FACE_OPUS_MT = 'OPUS MT En -> De';
-    public const TRANSLATOR_HUGGING_FACE_T5_SMALL = 'T5 small';
+    public const TRANSLATOR_HUGGING_FACE_T5_SMALL = 'T5 small En -> De';
     private const TRANSLATOR_MAPPING = [
+        self::TRANSLATOR_DEEPL => DeeplTranslator::class,
         self::TRANSLATOR_HUGGING_FACE_OPUS_MT => HuggingFaceOpusMtEnDeTranslator::class,
         self::TRANSLATOR_HUGGING_FACE_T5_SMALL => HuggingFaceT5SmallTranslator::class,
     ];
 
     public ?string $altTextGenerator = null;
     public ?string $altTextTranslator = null;
-    public ?string $apiToken = null;
+    public ?string $huggingFaceApiToken = null;
+    public ?string $deeplApiToken = null;
 
     public array $wordsBlackList = [
         'arafed',
@@ -42,9 +46,14 @@ class Settings extends Model
         'araffe',
     ];
 
-    public function getApiToken(): ?string
+    public function getHuggingFaceApiToken(): ?string
     {
-        return App::parseEnv($this->apiToken);
+        return App::parseEnv($this->huggingFaceApiToken);
+    }
+
+    public function getDeeplApiToken(): ?string
+    {
+        return App::parseEnv($this->deeplApiToken);
     }
 
     public function getGeneratorSuggestions(): array

@@ -12,9 +12,10 @@ use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Utils;
 use yii\base\InvalidConfigException;
 
-class AbstractHuggingFaceAltTextGenerator extends AbstractHuggingFaceConnector implements AltTextGeneratorInterface
+abstract class AbstractHuggingFaceAltTextGenerator extends AbstractHuggingFaceConnector
+    implements AltTextGeneratorInterface
 {
-    protected string $modelPath = '/models/Salesforce/blip-image-captioning-large';
+    protected string $modelPath = '';
 
     /**
      * @throws GuzzleException

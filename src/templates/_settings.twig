@@ -26,11 +26,21 @@
 }) }}
 
 {{ forms.autosuggestField({
-  label: "API token"|t('app'),
-  id: 'apiToken',
-  name: 'apiToken',
+  label: "HuggingFace API token"|t('app'),
+  id: 'huggingFaceApiToken',
+  name: 'huggingFaceApiToken',
   suggestEnvVars: true,
-  value: settings.apiToken,
+  value: settings.huggingFaceApiToken,
   size: 60,
-  errors: settings.getErrors('apiToken')
+  errors: settings.getErrors('huggingFaceApiToken')
+}) }}
+
+{{ forms.autosuggestField({
+  label: "DeepL API token"|t('app'),
+  id: 'deeplApiKey',
+  name: 'deeplApiKey',
+  suggestEnvVars: true,
+  value: settings.deeplApiKey,
+  size: 60,
+  errors: settings.getErrors('deeplApiKey')
 }) }}
