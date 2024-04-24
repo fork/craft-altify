@@ -88,7 +88,6 @@ In a future release it should be possible to register alt text generators with a
 
 ## TODO
 
-* Implement more translation services
 * Make translation services respect the site's language setting
 * Implement more alt text generation services
 * Maybe implement a self-hosted alt text generation service

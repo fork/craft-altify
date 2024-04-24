@@ -19,7 +19,7 @@ class DeeplTranslator implements TranslatorInterface
         $altText = $image->alt;
 
         if (!empty($altText)) {
-            $translator = new Translator(Plugin::getInstance()->getSettings()->getDeeplApiToken());
+            $translator = new Translator(Plugin::getInstance()->getSettings()->getDeeplApiKey());
             $result = $translator->translateText($altText, null, $image->site->language);
             $altText = $result->text;
         }

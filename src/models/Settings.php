@@ -17,6 +17,9 @@ use yii\base\InvalidConfigException;
 
 /**
  * alt settings
+ *
+ * @property-read array[] $translatorSuggestions
+ * @property-read array[] $generatorSuggestions
  */
 class Settings extends Model
 {
@@ -38,7 +41,7 @@ class Settings extends Model
     public ?string $altTextGenerator = null;
     public ?string $altTextTranslator = null;
     public ?string $huggingFaceApiToken = null;
-    public ?string $deeplApiToken = null;
+    public ?string $deeplApiKey = null;
 
     public array $wordsBlackList = [
         'arafed',
@@ -51,9 +54,9 @@ class Settings extends Model
         return App::parseEnv($this->huggingFaceApiToken);
     }
 
-    public function getDeeplApiToken(): ?string
+    public function getDeeplApiKey(): ?string
     {
-        return App::parseEnv($this->deeplApiToken);
+        return App::parseEnv($this->deeplApiKey);
     }
 
     public function getGeneratorSuggestions(): array
