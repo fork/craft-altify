@@ -10,13 +10,13 @@ use Throwable;
 use yii\base\Exception;
 
 /**
- * Generate Alt Text element action
+ * Translate Alt Text element action
  */
-class GenerateAltText extends ElementAction
+class TranslateAltText extends ElementAction
 {
     public static function displayName(): string
     {
-        return Craft::t('altify', 'Generate alt text');
+        return Craft::t('altify', 'Translate alt text');
     }
 
     public function getTriggerHtml(): ?string
@@ -58,7 +58,7 @@ class GenerateAltText extends ElementAction
         $elements = $query->all();
         foreach ($elements as $element) {
             try {
-                Plugin::getInstance()->altTextGeneration->generateAltTextForImage($element->id);
+                Plugin::getInstance()->translation->translateAltTextForImage($element->id);
             } catch (Exception|Throwable $e) {
                 Craft::$app->getSession()->setError($e->getMessage());
             }

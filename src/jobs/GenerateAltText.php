@@ -1,12 +1,12 @@
 <?php
 
-namespace fork\alt\jobs;
+namespace fork\altify\jobs;
 
 use craft\errors\ElementNotFoundException;
 use craft\queue\BaseJob;
-use fork\alt\exception\ImageNotSavedException;
-use fork\alt\exception\NotAnImageException;
-use fork\alt\Plugin;
+use fork\altify\exception\ImageNotSavedException;
+use fork\altify\exception\NotAnImageException;
+use fork\altify\Plugin;
 use Throwable;
 use yii\base\Exception;
 use yii\base\InvalidConfigException;

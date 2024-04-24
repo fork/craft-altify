@@ -1,6 +1,6 @@
 <?php
 
-namespace fork\alt\exception;
+namespace fork\altify\exception;
 
 use yii\base\Exception;
 

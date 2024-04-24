@@ -12,9 +12,9 @@ use yii\web\BadRequestHttpException;
 use yii\web\Response;
 
 /**
- * Alt Text Controller
+ * Translation Controller
  */
-class GenerateAltTextController extends Controller
+class TranslateAltTextController extends Controller
 {
     public $defaultAction = 'index';
     protected array|int|bool $allowAnonymous = self::ALLOW_ANONYMOUS_NEVER;
@@ -32,7 +32,7 @@ class GenerateAltTextController extends Controller
         $assetId = Craft::$app->request->getBodyParam('assetId');
 
         try {
-            Plugin::getInstance()->altTextGeneration->generateAltTextForImage($assetId);
+            Plugin::getInstance()->translation->translateAltTextForImage($assetId);
         } catch (Exception|Throwable $e) {
             Craft::$app->getSession()->setError($e->getMessage());
         }

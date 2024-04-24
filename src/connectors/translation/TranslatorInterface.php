@@ -1,10 +1,11 @@
 <?php
 
-namespace fork\alt\connectors\translation;
+namespace fork\altify\connectors\translation;
 
-use fork\alt\connectors\ConnectorInterface;
+use craft\elements\Asset;
+use fork\altify\connectors\ConnectorInterface;
 
 interface TranslatorInterface extends ConnectorInterface
 {
-
+    public function translateAltTextForImage(Asset $image): ?string;
 }
