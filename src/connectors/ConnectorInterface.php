@@ -1,5 +1,5 @@
 <?php
 
-namespace fork\alt\connectors;
+namespace fork\altify\connectors;
 
 interface ConnectorInterface {}

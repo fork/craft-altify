@@ -1,10 +1,10 @@
-{# @var plugin \fork\alt\Plugin #}
-{# @var settings \fork\alt\models\Settings #}
+{# @var plugin \fork\altify\Plugin #}
+{# @var settings \fork\altify\models\Settings #}
 
 {% import '_includes/forms.twig' as forms %}
 
 {{ forms.autosuggestField({
-  label: "Alt text generator service"|t('app'),
+  label: "Alt text generator service"|t('altify'),
   id: 'altTextGenerator',
   name: 'altTextGenerator',
   suggestEnvVars: true,
@@ -15,7 +15,7 @@
 }) }}
 
 {{ forms.autosuggestField({
-  label: "Alt text translator service"|t('app'),
+  label: "Alt text translator service"|t('altify'),
   id: 'altTextTranslator',
   name: 'altTextTranslator',
   suggestEnvVars: true,
@@ -26,7 +26,7 @@
 }) }}
 
 {{ forms.autosuggestField({
-  label: "HuggingFace API token"|t('app'),
+  label: "HuggingFace API token"|t('altfy'),
   id: 'huggingFaceApiToken',
   name: 'huggingFaceApiToken',
   suggestEnvVars: true,
@@ -36,7 +36,7 @@
 }) }}
 
 {{ forms.autosuggestField({
-  label: "DeepL API key"|t('app'),
+  label: "DeepL API key"|t('altify'),
   id: 'deeplApiKey',
   name: 'deeplApiKey',
   suggestEnvVars: true,

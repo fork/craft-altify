@@ -1,11 +1,11 @@
 <?php
 
-namespace fork\alt\connectors\translation;
+namespace fork\altify\connectors\translation;
 
 use craft\elements\Asset;
 use DeepL\DeepLException;
 use DeepL\Translator;
-use fork\alt\Plugin;
+use fork\altify\Plugin;
 
 class DeeplTranslator implements TranslatorInterface
 {

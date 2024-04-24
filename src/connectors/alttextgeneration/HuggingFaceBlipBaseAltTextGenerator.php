@@ -1,6 +1,6 @@
 <?php
 
-namespace fork\alt\connectors\alttextgeneration;
+namespace fork\altify\connectors\alttextgeneration;
 
 class HuggingFaceBlipBaseAltTextGenerator extends AbstractHuggingFaceAltTextGenerator
 {

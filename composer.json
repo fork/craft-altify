@@ -1,14 +1,14 @@
 {
-    "name": "fork/craft-alt",
+    "name": "fork/craft-altify",
     "description": "Generates alt texts for images using different services that can be chosen from.",
     "type": "craft-plugin",
     "license": "mit",
     "support": {
         "email": "obj@fork.de",
-        "issues": "https://github.com/fork/craft-alt/issues?state=open",
-        "source": "https://github.com/fork/craft-alt",
-        "docs": "https://github.com/fork/craft-alt",
-        "rss": "https://github.com/fork/craft-alt/releases.atom"
+        "issues": "https://github.com/fork/craft-altify/issues?state=open",
+        "source": "https://github.com/fork/craft-altify",
+        "docs": "https://github.com/fork/craft-altify",
+        "rss": "https://github.com/fork/craft-altify/releases.atom"
     },
     "require": {
         "php": ">=8.0.2",
@@ -21,14 +21,14 @@
     },
     "autoload": {
         "psr-4": {
-            "fork\\alt\\": "src/"
+            "fork\\altify\\": "src/"
         }
     },
     "extra": {
         "handle": "alt",
         "name": "alt",
         "developer": "Fork",
-        "documentationUrl": "https://github.com/fork/craft-alt"
+        "documentationUrl": "https://github.com/fork/craft-altify"
     },
     "scripts": {
         "check-cs": "ecs check --ansi",

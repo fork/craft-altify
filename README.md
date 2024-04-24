@@ -32,7 +32,7 @@ Open your terminal and run the following commands:
 cd /path/to/my-project.test
 
 # tell Composer to load the plugin
-composer require fork/craft-alt
+composer require fork/craft-altify
 
 # tell Craft to install the plugin
 ./craft plugin/install alt

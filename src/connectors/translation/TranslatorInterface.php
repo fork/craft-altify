@@ -1,9 +1,9 @@
 <?php
 
-namespace fork\alt\connectors\translation;
+namespace fork\altify\connectors\translation;
 
 use craft\elements\Asset;
-use fork\alt\connectors\ConnectorInterface;
+use fork\altify\connectors\ConnectorInterface;
 
 interface TranslatorInterface extends ConnectorInterface
 {

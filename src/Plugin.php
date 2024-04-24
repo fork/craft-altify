@@ -1,6 +1,6 @@
 <?php
 
-namespace fork\alt;
+namespace fork\altify;
 
 use Craft;
 use craft\base\Element;
@@ -12,12 +12,12 @@ use craft\events\DefineHtmlEvent;
 use craft\events\ModelEvent;
 use craft\events\RegisterElementActionsEvent;
 use craft\helpers\Html;
-use fork\alt\elements\actions\GenerateAltText as GenerateAltTextAction;
-use fork\alt\elements\actions\TranslateAltText as TranslateAltTextAction;
-use fork\alt\jobs\GenerateAltText as GenerateAltTextJob;
-use fork\alt\models\Settings;
-use fork\alt\services\AltTextGeneration;
-use fork\alt\services\Translation;
+use fork\altify\elements\actions\GenerateAltText as GenerateAltTextAction;
+use fork\altify\elements\actions\TranslateAltText as TranslateAltTextAction;
+use fork\altify\jobs\GenerateAltText as GenerateAltTextJob;
+use fork\altify\models\Settings;
+use fork\altify\services\AltTextGeneration;
+use fork\altify\services\Translation;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
@@ -25,7 +25,7 @@ use yii\base\Exception;
 use yii\base\InvalidConfigException;
 
 /**
- * alt plugin
+ * altify plugin
  *
  * @method static Plugin getInstance()
  * @method Settings getSettings()
@@ -79,7 +79,7 @@ class Plugin extends BasePlugin
     {
         $settings = $this->getSettings();
 
-        return Craft::$app->view->renderTemplate('alt/_settings.twig', [
+        return Craft::$app->view->renderTemplate('altify/_settings.twig', [
             'plugin' => $this,
             'settings' => $settings,
             'altTextGeneratorSuggestions' => $settings->getGeneratorSuggestions(),
@@ -127,24 +127,24 @@ class Plugin extends BasePlugin
     {
         /** @see Asset::getAdditionalButtons() */
         $event->html = Html::beginTag('div', ['class' => 'btngroup']);
-        $event->html .= Html::button(Craft::t('alt', 'Generate alt text'), [
+        $event->html .= Html::button(Craft::t('altify', 'Generate alt text'), [
             'id' => 'generateAltText-btn',
             'class' => 'btn',
             'data' => [
                 'icon' => 'wand',
             ],
             'aria' => [
-                'label' => Craft::t('alt', 'Generate alt text'),
+                'label' => Craft::t('altify', 'Generate alt text'),
             ],
         ]);
-        $event->html .= Html::button(Craft::t('alt', 'Translate alt text'), [
+        $event->html .= Html::button(Craft::t('altify', 'Translate alt text'), [
             'id' => 'translateAltText-btn',
             'class' => 'btn',
             'data' => [
                 'icon' => 'language',
             ],
             'aria' => [
-                'label' => Craft::t('alt', 'Translate alt text'),
+                'label' => Craft::t('altify', 'Translate alt text'),
             ],
         ]);
         $js = <<<JS
@@ -152,7 +152,7 @@ class Plugin extends BasePlugin
                         let id = document.querySelector("input[name='elementId']").value;
                         const \$form = Craft.createForm().appendTo(Garnish.\$bod);
                         \$form.append(Craft.getCsrfInput());
-                        $('<input/>', {type: 'hidden', name: 'action', value: 'alt/generate-alt-text'}).appendTo(\$form);
+                        $('<input/>', {type: 'hidden', name: 'action', value: 'altify/generate-alt-text'}).appendTo(\$form);
                         $('<input/>', {type: 'hidden', name: 'assetId', value: id}).appendTo(\$form);
                         $('<input/>', {type: 'submit', value: 'Submit'}).appendTo(\$form);
                         \$form.submit();
@@ -162,7 +162,7 @@ class Plugin extends BasePlugin
                         let id = document.querySelector("input[name='elementId']").value;
                         const \$form = Craft.createForm().appendTo(Garnish.\$bod);
                         \$form.append(Craft.getCsrfInput());
-                        $('<input/>', {type: 'hidden', name: 'action', value: 'alt/translate-alt-text'}).appendTo(\$form);
+                        $('<input/>', {type: 'hidden', name: 'action', value: 'altify/translate-alt-text'}).appendTo(\$form);
                         $('<input/>', {type: 'hidden', name: 'assetId', value: id}).appendTo(\$form);
                         $('<input/>', {type: 'submit', value: 'Submit'}).appendTo(\$form);
                         \$form.submit();

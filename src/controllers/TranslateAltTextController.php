@@ -1,18 +1,18 @@
 <?php
 
-namespace fork\alt\controllers;
+namespace fork\altify\controllers;
 
 use Craft;
 use craft\errors\MissingComponentException;
 use craft\web\Controller;
-use fork\alt\Plugin;
+use fork\altify\Plugin;
 use Throwable;
 use yii\base\Exception;
 use yii\web\BadRequestHttpException;
 use yii\web\Response;
 
 /**
- * Alt Text Controller controller
+ * Translation Controller
  */
 class TranslateAltTextController extends Controller
 {
@@ -20,7 +20,7 @@ class TranslateAltTextController extends Controller
     protected array|int|bool $allowAnonymous = self::ALLOW_ANONYMOUS_NEVER;
 
     /**
-     * alt/generate-alt-text action
+     * altify/generate-alt-text action
      * @return Response
      * @throws BadRequestHttpException
      * @throws MissingComponentException

@@ -1,11 +1,11 @@
 <?php
 
-namespace fork\alt\helpers;
+namespace fork\altify\helpers;
 
 use craft\base\Element;
 use craft\elements\Asset;
 use craft\errors\ElementNotFoundException;
-use fork\alt\exception\NotAnImageException;
+use fork\altify\exception\NotAnImageException;
 
 class AssetHelper
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace fork\alt\connectors;
+namespace fork\altify\connectors;
 
-use fork\alt\Plugin;
+use fork\altify\Plugin;
 use GuzzleHttp\Client;
 
 class AbstractHuggingFaceConnector implements ConnectorInterface

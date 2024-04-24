@@ -1,22 +1,22 @@
 <?php
 
-namespace fork\alt\models;
+namespace fork\altify\models;
 
 use Craft;
 use craft\base\Model;
 use craft\helpers\App;
-use fork\alt\connectors\alttextgeneration\AltTextGeneratorInterface;
-use fork\alt\connectors\alttextgeneration\HuggingFaceBlipBaseAltTextGenerator;
-use fork\alt\connectors\alttextgeneration\HuggingFaceBlipLargeAltTextGenerator;
-use fork\alt\connectors\translation\DeeplTranslator;
-use fork\alt\connectors\translation\HuggingFaceOpusMtEnDeTranslator;
-use fork\alt\connectors\translation\HuggingFaceT5SmallTranslator;
-use fork\alt\connectors\translation\TranslatorInterface;
-use fork\alt\Plugin;
+use fork\altify\connectors\alttextgeneration\AltTextGeneratorInterface;
+use fork\altify\connectors\alttextgeneration\HuggingFaceBlipBaseAltTextGenerator;
+use fork\altify\connectors\alttextgeneration\HuggingFaceBlipLargeAltTextGenerator;
+use fork\altify\connectors\translation\DeeplTranslator;
+use fork\altify\connectors\translation\HuggingFaceOpusMtEnDeTranslator;
+use fork\altify\connectors\translation\HuggingFaceT5SmallTranslator;
+use fork\altify\connectors\translation\TranslatorInterface;
+use fork\altify\Plugin;
 use yii\base\InvalidConfigException;
 
 /**
- * alt settings
+ * altify settings
  *
  * @property-read array[] $translatorSuggestions
  * @property-read array[] $generatorSuggestions
@@ -71,7 +71,7 @@ class Settings extends Model
         }
 
         return [[
-            'label' => Craft::t('alt', 'Generators'),
+            'label' => Craft::t('altify', 'Generators'),
             'data' => $data
         ]];
     }
@@ -88,7 +88,7 @@ class Settings extends Model
         }
 
         return [[
-            'label' => Craft::t('alt', 'Translators'),
+            'label' => Craft::t('altify', 'Translators'),
             'data' => $data
         ]];
     }
@@ -106,7 +106,7 @@ class Settings extends Model
         }
         if (!is_a($className, AltTextGeneratorInterface::class, true)) {
             throw new InvalidConfigException(Craft::t(
-                'alt',
+                'altify',
                 '{class} must implement {interface}',
                 [
                     'class' => Plugin::getInstance()->getSettings()->altTextGenerator,
@@ -131,7 +131,7 @@ class Settings extends Model
         }
         if (!is_a($className, TranslatorInterface::class, true)) {
             throw new InvalidConfigException(Craft::t(
-                'alt',
+                'altify',
                 '{class} must implement {interface}',
                 [
                     'class' => Plugin::getInstance()->getSettings()->altTextTranslator,

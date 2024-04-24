@@ -1,9 +1,9 @@
 <?php
 
-namespace fork\alt\connectors\translation;
+namespace fork\altify\connectors\translation;
 
 use craft\elements\Asset;
-use fork\alt\connectors\AbstractHuggingFaceConnector;
+use fork\altify\connectors\AbstractHuggingFaceConnector;
 use GuzzleHttp\Exception\GuzzleException;
 
 abstract class AbstractHuggingFaceTranslator extends AbstractHuggingFaceConnector implements TranslatorInterface

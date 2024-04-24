@@ -1,13 +1,13 @@
 <?php
 
-namespace fork\alt\connectors\alttextgeneration;
+namespace fork\altify\connectors\alttextgeneration;
 
 use Craft;
 use craft\elements\Asset;
 use craft\fs\Local;
-use fork\alt\connectors\AbstractHuggingFaceConnector;
-use fork\alt\exception\NotALocalFileException;
-use fork\alt\Plugin;
+use fork\altify\connectors\AbstractHuggingFaceConnector;
+use fork\altify\exception\NotALocalFileException;
+use fork\altify\Plugin;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Utils;
 use yii\base\InvalidConfigException;

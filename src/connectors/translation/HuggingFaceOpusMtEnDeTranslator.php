@@ -1,6 +1,6 @@
 <?php
 
-namespace fork\alt\connectors\translation;
+namespace fork\altify\connectors\translation;
 
 class HuggingFaceOpusMtEnDeTranslator extends AbstractHuggingFaceTranslator
 {

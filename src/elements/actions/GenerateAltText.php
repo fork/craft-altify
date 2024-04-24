@@ -1,11 +1,11 @@
 <?php
 
-namespace fork\alt\elements\actions;
+namespace fork\altify\elements\actions;
 
 use Craft;
 use craft\base\ElementAction;
 use craft\errors\MissingComponentException;
-use fork\alt\Plugin;
+use fork\altify\Plugin;
 use Throwable;
 use yii\base\Exception;
 
@@ -16,7 +16,7 @@ class GenerateAltText extends ElementAction
 {
     public static function displayName(): string
     {
-        return Craft::t('alt', 'Generate alt text');
+        return Craft::t('altify', 'Generate alt text');
     }
 
     public function getTriggerHtml(): ?string
