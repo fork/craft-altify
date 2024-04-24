@@ -38,6 +38,7 @@ use yii\base\InvalidConfigException;
  */
 class Plugin extends BasePlugin
 {
+    public ?string $name = 'Altify';
     public string $schemaVersion = '1.0.0';
     public bool $hasCpSettings = true;
 
@@ -81,9 +82,7 @@ class Plugin extends BasePlugin
 
         return Craft::$app->view->renderTemplate('altify/_settings.twig', [
             'plugin' => $this,
-            'settings' => $settings,
-            'altTextGeneratorSuggestions' => $settings->getGeneratorSuggestions(),
-            'altTextTranslatorSuggestions' => $settings->getTranslatorSuggestions()
+            'settings' => $settings
         ]);
     }
 
