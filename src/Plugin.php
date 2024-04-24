@@ -13,6 +13,7 @@ use craft\events\ModelEvent;
 use craft\events\RegisterElementActionsEvent;
 use craft\helpers\Html;
 use fork\alt\elements\actions\GenerateAltText as GenerateAltTextAction;
+use fork\alt\elements\actions\TranslateAltText as TranslateAltTextAction;
 use fork\alt\jobs\GenerateAltText as GenerateAltTextJob;
 use fork\alt\models\Settings;
 use fork\alt\services\AltTextGeneration;
@@ -113,6 +114,7 @@ class Plugin extends BasePlugin
             Element::EVENT_REGISTER_ACTIONS,
             function (RegisterElementActionsEvent $event) {
                 $event->actions[] = GenerateAltTextAction::class;
+                $event->actions[] = TranslateAltTextAction::class;
             }
         );
     }

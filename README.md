@@ -47,7 +47,7 @@ set it directly in the plugin's settings.
 In order to use another model, go to the plugin settings and choose one of those available.
 You can also set the model via ENV variable. This can be a class name, or one of the following names.
 
-### Available models
+### Out-of-the-box Available models
 
 <table>
     <tr>
@@ -72,7 +72,7 @@ You can also set the model via ENV variable. This can be a class name, or one of
     </tr>
 </table>
 
-### Available translation services
+### Out-of-the-box Available translation services
 
 * ...
 
@@ -88,7 +88,8 @@ In a future release it should be possible to register alt text generators with a
 
 ## TODO
 
-* Implement translation services
+* Implement more translation services
+* Make translation services respect the site's language setting
 * Implement more alt text generation services
 * Maybe implement a self-hosted alt text generation service
 * Maybe implement a alt text generation service running in browser with TensorFlow JS

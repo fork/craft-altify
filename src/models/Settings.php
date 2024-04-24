@@ -9,6 +9,7 @@ use fork\alt\connectors\alttextgeneration\AltTextGeneratorInterface;
 use fork\alt\connectors\alttextgeneration\HuggingFaceBlipBaseAltTextGenerator;
 use fork\alt\connectors\alttextgeneration\HuggingFaceBlipLargeAltTextGenerator;
 use fork\alt\connectors\translation\HuggingFaceOpusMtEnDeTranslator;
+use fork\alt\connectors\translation\HuggingFaceT5SmallTranslator;
 use fork\alt\connectors\translation\TranslatorInterface;
 use fork\alt\Plugin;
 use yii\base\InvalidConfigException;
@@ -25,8 +26,10 @@ class Settings extends Model
         self::GENERATOR_HUGGING_FACE_BLIP_BASE => HuggingFaceBlipBaseAltTextGenerator::class
     ];
     public const TRANSLATOR_HUGGING_FACE_OPUS_MT = 'OPUS MT En -> De';
+    public const TRANSLATOR_HUGGING_FACE_T5_SMALL = 'T5 small';
     private const TRANSLATOR_MAPPING = [
         self::TRANSLATOR_HUGGING_FACE_OPUS_MT => HuggingFaceOpusMtEnDeTranslator::class,
+        self::TRANSLATOR_HUGGING_FACE_T5_SMALL => HuggingFaceT5SmallTranslator::class,
     ];
 
     public ?string $altTextGenerator = null;
@@ -112,7 +115,7 @@ class Settings extends Model
         if (class_exists($altTextTranslator)) {
             $className = $altTextTranslator;
         } else {
-            $className = self::TRANSLATOR_MAPPING[$this->altTextTranslator ?? self::TRANSLATOR_HUGGING_FACE_OPUS_MT];
+            $className = self::TRANSLATOR_MAPPING[$this->altTextTranslator ?? self::TRANSLATOR_HUGGING_FACE_T5_SMALL];
         }
         if (!is_a($className, TranslatorInterface::class, true)) {
             throw new InvalidConfigException(Craft::t(
