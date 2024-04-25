@@ -9,6 +9,19 @@ use fork\altify\Plugin;
 
 class DeeplTranslator implements TranslatorInterface
 {
+    protected string $name = 'DeepL';
+    protected string $handle = 'deepl';
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getHandle(): string
+    {
+        return $this->handle;
+    }
+
     /**
      * @param Asset $image
      * @return string|null
@@ -26,4 +39,5 @@ class DeeplTranslator implements TranslatorInterface
 
         return $altText;
     }
+
 }
