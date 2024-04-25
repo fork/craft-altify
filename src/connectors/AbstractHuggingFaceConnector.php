@@ -5,8 +5,21 @@ namespace fork\altify\connectors;
 use fork\altify\Plugin;
 use GuzzleHttp\Client;
 
-class AbstractHuggingFaceConnector implements ConnectorInterface
+abstract class AbstractHuggingFaceConnector implements ConnectorInterface
 {
+    protected string $name = '';
+    protected string $handle = '';
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getHandle(): string
+    {
+        return $this->handle;
+    }
+
     protected function getClient(): Client
     {
         return new Client([

@@ -1,5 +1,11 @@
 # Release Notes for Altify
 
+# [1.0.0-beta.3] (2024-04-25)
+
+### Changes
+
+* Refactored the connector settings for simplicity and future extensibility
+
 # [1.0.0-beta.2] (2024-04-24)
 
 ### Changes

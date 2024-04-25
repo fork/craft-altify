@@ -8,6 +8,7 @@ use craft\helpers\App;
 use fork\altify\connectors\alttextgeneration\AltTextGeneratorInterface;
 use fork\altify\connectors\alttextgeneration\HuggingFaceBlipBaseAltTextGenerator;
 use fork\altify\connectors\alttextgeneration\HuggingFaceBlipLargeAltTextGenerator;
+use fork\altify\connectors\ConnectorInterface;
 use fork\altify\connectors\translation\DeeplTranslator;
 use fork\altify\connectors\translation\HuggingFaceOpusMtEnDeTranslator;
 use fork\altify\connectors\translation\HuggingFaceT5SmallTranslator;
@@ -23,19 +24,15 @@ use yii\base\InvalidConfigException;
  */
 class Settings extends Model
 {
-    public const GENERATOR_HUGGING_FACE_BLIP_LARGE = 'BLIP large model (Hugging Face)';
-    public const GENERATOR_HUGGING_FACE_BLIP_BASE = 'BLIP base model (Hugging Face)';
-    private const GENERATOR_MAPPING = [
-        self::GENERATOR_HUGGING_FACE_BLIP_LARGE => HuggingFaceBlipLargeAltTextGenerator::class,
-        self::GENERATOR_HUGGING_FACE_BLIP_BASE => HuggingFaceBlipBaseAltTextGenerator::class
+    private const GENERATORS = [
+        HuggingFaceBlipLargeAltTextGenerator::class,
+        HuggingFaceBlipBaseAltTextGenerator::class
     ];
-    public const TRANSLATOR_DEEPL = 'DeepL';
-    public const TRANSLATOR_HUGGING_FACE_OPUS_MT = 'OPUS MT En -> De';
-    public const TRANSLATOR_HUGGING_FACE_T5_SMALL = 'T5 small En -> De';
-    private const TRANSLATOR_MAPPING = [
-        self::TRANSLATOR_DEEPL => DeeplTranslator::class,
-        self::TRANSLATOR_HUGGING_FACE_OPUS_MT => HuggingFaceOpusMtEnDeTranslator::class,
-        self::TRANSLATOR_HUGGING_FACE_T5_SMALL => HuggingFaceT5SmallTranslator::class,
+
+    private const TRANSLATORS = [
+        DeeplTranslator::class,
+        HuggingFaceOpusMtEnDeTranslator::class,
+        HuggingFaceT5SmallTranslator::class,
     ];
 
     public ?string $altTextGenerator = null;
@@ -59,14 +56,21 @@ class Settings extends Model
         return App::parseEnv($this->deeplApiKey);
     }
 
+    /**
+     * @return array[]
+     * @noinspection PhpUnused
+     */
     public function getGeneratorSuggestions(): array
     {
         $data = [];
 
-        foreach (self::GENERATOR_MAPPING as $name => $hint) {
+        foreach (self::getAvailableGenerators() as $handle => $classname) {
+            /** @var AltTextGeneratorInterface $obj */
+            $obj = new $classname();
+
             $data[] = [
-                'name' => $name,
-                'hint' => $hint
+                'name' => $handle,
+                'hint' => $obj->getName()
             ];
         }
 
@@ -76,14 +80,21 @@ class Settings extends Model
         ]];
     }
 
+    /**
+     * @return array[]
+     * @noinspection PhpUnused
+     */
     public function getTranslatorSuggestions(): array
     {
         $data = [];
 
-        foreach (self::TRANSLATOR_MAPPING as $name => $hint) {
+        foreach (self::getAvailableTranslators() as $handle => $classname) {
+            /** @var TranslatorInterface $obj */
+            $obj = new $classname();
+
             $data[] = [
-                'name' => $name,
-                'hint' => $hint
+                'name' => $handle,
+                'hint' => $obj->getName()
             ];
         }
 
@@ -99,10 +110,12 @@ class Settings extends Model
     public function getAltTextGenerator(): AltTextGeneratorInterface
     {
         $altTextGenerator = App::parseEnv($this->altTextGenerator);
-        if (class_exists($altTextGenerator)) {
-            $className = $altTextGenerator;
+        $generators = $this->getAvailableGenerators();
+
+        if (key_exists($altTextGenerator, $generators)) {
+            $className = $generators[$altTextGenerator];
         } else {
-            $className = self::GENERATOR_MAPPING[$this->altTextGenerator ?? self::GENERATOR_HUGGING_FACE_BLIP_LARGE];
+            $className = HuggingFaceBlipLargeAltTextGenerator::class;
         }
         if (!is_a($className, AltTextGeneratorInterface::class, true)) {
             throw new InvalidConfigException(Craft::t(
@@ -124,10 +137,12 @@ class Settings extends Model
     public function getAltTextTranslator(): TranslatorInterface
     {
         $altTextTranslator = App::parseEnv($this->altTextTranslator);
-        if (class_exists($altTextTranslator)) {
-            $className = $altTextTranslator;
+        $translators = self::getAvailableTranslators();
+
+        if (key_exists($altTextTranslator, $translators)) {
+            $className = $translators[$altTextTranslator];
         } else {
-            $className = self::TRANSLATOR_MAPPING[$this->altTextTranslator ?? self::TRANSLATOR_HUGGING_FACE_T5_SMALL];
+            $className = HuggingFaceT5SmallTranslator::class;
         }
         if (!is_a($className, TranslatorInterface::class, true)) {
             throw new InvalidConfigException(Craft::t(
@@ -141,5 +156,29 @@ class Settings extends Model
         }
 
         return new $className;
+    }
+
+    private static function getAvailableGenerators(): array
+    {
+        return self::buildConnectorArray(self::GENERATORS);
+    }
+
+    private static function getAvailableTranslators(): array
+    {
+        return self::buildConnectorArray(self::TRANSLATORS);
+    }
+
+    private static function buildConnectorArray(array $classnames): array
+    {
+        $data = [];
+
+        foreach ($classnames as $classname) {
+            /** @var ConnectorInterface $obj */
+            $obj = new $classname();
+
+            $data[$obj->getHandle()] = $classname;
+        }
+
+        return $data;
     }
 }
