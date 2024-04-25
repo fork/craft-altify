@@ -69,8 +69,8 @@ class Settings extends Model
             $obj = new $classname();
 
             $data[] = [
-                'name' => $obj->getName(),
-                'hint' => $handle
+                'name' => $handle,
+                'hint' => $obj->getName()
             ];
         }
 
@@ -93,8 +93,8 @@ class Settings extends Model
             $obj = new $classname();
 
             $data[] = [
-                'name' => $obj->getName(),
-                'hint' => $handle
+                'name' => $handle,
+                'hint' => $obj->getName()
             ];
         }
 
