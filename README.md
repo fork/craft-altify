@@ -74,7 +74,33 @@ You can also set the model via ENV variable. This can be a class name, or one of
 
 ### Out-of-the-box Available translation services
 
-* ...
+<table>
+    <tr>
+        <th>Model name</th>
+        <th>Link</th>
+        <th>Config name</th>
+    </tr>
+    <tr>
+        <td>DeepL</td>
+        <td><a>https://developers.deepl.com/docs</a></td>
+        <td>DeepL</td>
+    </tr>
+    <tr>
+        <td>OPUS MT (EN → DE)</td>
+        <td><a>https://huggingface.co/Helsinki-NLP/opus-mt-en-de</a></td>
+        <td>OPUS MT En -> De</td>
+    </tr>
+    <tr>
+        <td>Google T5 small (EN → DE)</td>
+        <td><a>https://huggingface.co/google-t5/t5-small</a></td>
+        <td>T5 small En -> De</td>
+    </tr>
+    <tr>
+        <td>...</td>
+        <td>...</td>
+        <td>...</td>
+    </tr>
+</table>
 
 ### Implementing own alt text generator services
 
@@ -88,10 +114,10 @@ In a future release it should be possible to register alt text generators with a
 
 ## TODO
 
-* Make translation services respect the site's language setting
+* Make translation services site based to respect languages
 * Implement more alt text generation services
 * Maybe implement a self-hosted alt text generation service
-* Maybe implement a alt text generation service running in browser with TensorFlow JS
+* Maybe implement an alt text generation service running in browser with TensorFlow JS
 * Implement an alt text generator registering event
 * Make public on GitHub, release on Packagist and the Craft Plugin Store
 
