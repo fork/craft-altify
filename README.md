@@ -35,7 +35,7 @@ cd /path/to/my-project.test
 composer require fork/craft-altify
 
 # tell Craft to install the plugin
-./craft plugin/install alt
+./craft plugin/install altify
 ```
 
 ## Usage
@@ -53,20 +53,16 @@ You can also set the model via ENV variable. This can be a class name, or one of
     <tr>
         <th>Model name</th>
         <th>Link</th>
-        <th>Config name</th>
     </tr>
     <tr>
         <td>BLIP (large)</td>
         <td><a>https://huggingface.co/Salesforce/blip-image-captioning-large</a></td>
-        <td>BLIP large model (Hugging Face)</td>
     </tr>
     <tr>
         <td>BLIP (base)</td>
         <td><a>https://huggingface.co/Salesforce/blip-image-captioning-base</a></td>
-        <td>BLIP base model (Hugging Face)</td>
     </tr>
     <tr>
-        <td>...</td>
         <td>...</td>
         <td>...</td>
     </tr>
@@ -78,37 +74,59 @@ You can also set the model via ENV variable. This can be a class name, or one of
     <tr>
         <th>Model name</th>
         <th>Link</th>
-        <th>Config name</th>
     </tr>
     <tr>
-        <td>DeepL</td>
+        <td>DeepL API</td>
         <td><a>https://developers.deepl.com/docs</a></td>
-        <td>DeepL</td>
     </tr>
     <tr>
         <td>OPUS MT (EN → DE)</td>
         <td><a>https://huggingface.co/Helsinki-NLP/opus-mt-en-de</a></td>
-        <td>OPUS MT En -> De</td>
     </tr>
     <tr>
         <td>Google T5 small (EN → DE)</td>
         <td><a>https://huggingface.co/google-t5/t5-small</a></td>
-        <td>T5 small En -> De</td>
     </tr>
     <tr>
-        <td>...</td>
         <td>...</td>
         <td>...</td>
     </tr>
 </table>
 
-### Implementing own alt text generator services
+### Implementing own alt text generators and translators
 
 You can implement your own alt text generator service by implementing the interface
-`fork\alt\connectors\alttextgeneration\AltTextGeneratorInterface` and configuring this plugin to use it
-by setting your own generator's class name via ENV variable.
+`fork\alt\connectors\alttextgeneration\AltTextGeneratorInterface` and registering it via the `EVENT_REGISTER_GENERATORS`
+event like this:
 
-In a future release it should be possible to register alt text generators with an event.
+```
+use fork\altify\events\RegisterGeneratorsEvent;
+use fork\altify\services\Generator;
+
+Event::on(
+    Generator::class,
+    Generator::EVENT_REGISTER_GENERATORS,
+    function (RegisterGeneratorsEvent $event) {
+        $event->generators['myGenerator'] = MyGenerator::class;
+    }
+);
+```
+
+The same goes for translator services. Implement `fork\altify\connectors\translation\TranslatorInterface` and register
+your translator like this:
+
+```
+use fork\altify\events\RegisterTranslatorsEvent;
+use fork\altify\services\Translator;
+
+Event::on(
+    Translator::class,
+    Translator::EVENT_REGISTER_TRANSLATORS,
+    function (RegisterTranslatorsEvent $event) {
+        $event->translators['myTranslator'] = MyTranslator::class;
+    }
+);
+```
 
 ---
 
@@ -117,7 +135,7 @@ In a future release it should be possible to register alt text generators with a
 * Make translation services site based to respect languages
 * Implement more alt text generation services
 * Maybe implement a self-hosted alt text generation service
-* Maybe implement an alt text generation service running in browser with TensorFlow JS
+* Maybe implement an alt text generation service running in browser with TensorFlow JS or something similar
 * Implement an alt text generator registering event
 * Make public on GitHub, release on Packagist and the Craft Plugin Store
 

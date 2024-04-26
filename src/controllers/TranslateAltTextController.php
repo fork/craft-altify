@@ -32,7 +32,7 @@ class TranslateAltTextController extends Controller
         $assetId = Craft::$app->request->getBodyParam('assetId');
 
         try {
-            Plugin::getInstance()->translation->translateAltTextForImage($assetId);
+            Plugin::getInstance()->translator->translateAltTextForImage($assetId);
         } catch (Exception|Throwable $e) {
             Craft::$app->getSession()->setError($e->getMessage());
         }

@@ -28,7 +28,7 @@ class GenerateAltText extends BaseJob
      */
     public function execute($queue): void
     {
-        Plugin::getInstance()->altTextGeneration->generateAltTextForImage($this->assetId);
+        Plugin::getInstance()->generator->generateAltTextForImage($this->assetId);
     }
 
     protected function defaultDescription(): ?string

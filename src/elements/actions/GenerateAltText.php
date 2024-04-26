@@ -58,7 +58,7 @@ class GenerateAltText extends ElementAction
         $elements = $query->all();
         foreach ($elements as $element) {
             try {
-                Plugin::getInstance()->altTextGeneration->generateAltTextForImage($element->id);
+                Plugin::getInstance()->generator->generateAltTextForImage($element->id);
             } catch (Exception|Throwable $e) {
                 Craft::$app->getSession()->setError($e->getMessage());
             }

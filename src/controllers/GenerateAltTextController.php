@@ -32,7 +32,7 @@ class GenerateAltTextController extends Controller
         $assetId = Craft::$app->request->getBodyParam('assetId');
 
         try {
-            Plugin::getInstance()->altTextGeneration->generateAltTextForImage($assetId);
+            Plugin::getInstance()->generator->generateAltTextForImage($assetId);
         } catch (Exception|Throwable $e) {
             Craft::$app->getSession()->setError($e->getMessage());
         }
