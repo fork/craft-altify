@@ -5,20 +5,31 @@ namespace fork\altify\services;
 use Craft;
 use craft\elements\Asset;
 use craft\errors\ElementNotFoundException;
+use fork\altify\connectors\alttextgeneration\HuggingFaceBlipBaseAltTextGenerator;
+use fork\altify\connectors\alttextgeneration\HuggingFaceBlipLargeAltTextGenerator;
+use fork\altify\events\RegisterGeneratorsEvent;
 use fork\altify\exception\ImageNotSavedException;
 use fork\altify\exception\NotAnImageException;
 use fork\altify\helpers\AssetHelper;
 use fork\altify\Plugin;
 use Throwable;
-use yii\base\Component;
 use yii\base\Exception;
 use yii\base\InvalidConfigException;
 
 /**
  * Alt Text Generation service
+ *
+ * @property-read array $availableGenerators
  */
-class AltTextGeneration extends Component
+class Generator extends AbstractConnectorService
 {
+    public const EVENT_REGISTER_GENERATORS = 'registerGenerators';
+
+    private const GENERATORS = [
+        HuggingFaceBlipLargeAltTextGenerator::class,
+        HuggingFaceBlipBaseAltTextGenerator::class
+    ];
+
     /**
      * @param int $assetId
      * @throws ElementNotFoundException
@@ -48,5 +59,17 @@ class AltTextGeneration extends Component
     public function generateAltText(Asset $image): string
     {
         return Plugin::getInstance()->getSettings()->getAltTextGenerator()->generateAltTextForImage($image);
+    }
+
+    /**
+     * @return array
+     */
+    public function getAvailableGenerators(): array
+    {
+        $generators = self::buildConnectorArray(self::GENERATORS);
+        $registerGeneratorsEvent = new RegisterGeneratorsEvent(['generators' => $generators]);
+        $this->trigger(self::EVENT_REGISTER_GENERATORS, $registerGeneratorsEvent);
+
+        return $registerGeneratorsEvent->generators;
     }
 }

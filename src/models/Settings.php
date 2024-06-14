@@ -6,11 +6,7 @@ use Craft;
 use craft\base\Model;
 use craft\helpers\App;
 use fork\altify\connectors\alttextgeneration\AltTextGeneratorInterface;
-use fork\altify\connectors\alttextgeneration\HuggingFaceBlipBaseAltTextGenerator;
 use fork\altify\connectors\alttextgeneration\HuggingFaceBlipLargeAltTextGenerator;
-use fork\altify\connectors\ConnectorInterface;
-use fork\altify\connectors\translation\DeeplTranslator;
-use fork\altify\connectors\translation\HuggingFaceOpusMtEnDeTranslator;
 use fork\altify\connectors\translation\HuggingFaceT5SmallTranslator;
 use fork\altify\connectors\translation\TranslatorInterface;
 use fork\altify\Plugin;
@@ -24,17 +20,6 @@ use yii\base\InvalidConfigException;
  */
 class Settings extends Model
 {
-    private const GENERATORS = [
-        HuggingFaceBlipLargeAltTextGenerator::class,
-        HuggingFaceBlipBaseAltTextGenerator::class
-    ];
-
-    private const TRANSLATORS = [
-        DeeplTranslator::class,
-        HuggingFaceOpusMtEnDeTranslator::class,
-        HuggingFaceT5SmallTranslator::class,
-    ];
-
     public ?string $altTextGenerator = null;
     public ?string $altTextTranslator = null;
     public ?string $huggingFaceApiToken = null;
@@ -64,7 +49,7 @@ class Settings extends Model
     {
         $data = [];
 
-        foreach (self::getAvailableGenerators() as $handle => $classname) {
+        foreach (Plugin::getInstance()->generator->getAvailableGenerators() as $handle => $classname) {
             /** @var AltTextGeneratorInterface $obj */
             $obj = new $classname();
 
@@ -88,7 +73,7 @@ class Settings extends Model
     {
         $data = [];
 
-        foreach (self::getAvailableTranslators() as $handle => $classname) {
+        foreach (Plugin::getInstance()->translator->getAvailableTranslators() as $handle => $classname) {
             /** @var TranslatorInterface $obj */
             $obj = new $classname();
 
@@ -110,7 +95,7 @@ class Settings extends Model
     public function getAltTextGenerator(): AltTextGeneratorInterface
     {
         $altTextGenerator = App::parseEnv($this->altTextGenerator);
-        $generators = $this->getAvailableGenerators();
+        $generators = Plugin::getInstance()->generator->getAvailableGenerators();
 
         if (key_exists($altTextGenerator, $generators)) {
             $className = $generators[$altTextGenerator];
@@ -137,7 +122,7 @@ class Settings extends Model
     public function getAltTextTranslator(): TranslatorInterface
     {
         $altTextTranslator = App::parseEnv($this->altTextTranslator);
-        $translators = self::getAvailableTranslators();
+        $translators = Plugin::getInstance()->translator->getAvailableTranslators();
 
         if (key_exists($altTextTranslator, $translators)) {
             $className = $translators[$altTextTranslator];
@@ -156,29 +141,5 @@ class Settings extends Model
         }
 
         return new $className;
-    }
-
-    private static function getAvailableGenerators(): array
-    {
-        return self::buildConnectorArray(self::GENERATORS);
-    }
-
-    private static function getAvailableTranslators(): array
-    {
-        return self::buildConnectorArray(self::TRANSLATORS);
-    }
-
-    private static function buildConnectorArray(array $classnames): array
-    {
-        $data = [];
-
-        foreach ($classnames as $classname) {
-            /** @var ConnectorInterface $obj */
-            $obj = new $classname();
-
-            $data[$obj->getHandle()] = $classname;
-        }
-
-        return $data;
     }
 }

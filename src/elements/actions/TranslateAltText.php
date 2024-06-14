@@ -58,7 +58,7 @@ class TranslateAltText extends ElementAction
         $elements = $query->all();
         foreach ($elements as $element) {
             try {
-                Plugin::getInstance()->translation->translateAltTextForImage($element->id);
+                Plugin::getInstance()->translator->translateAltTextForImage($element->id);
             } catch (Exception|Throwable $e) {
                 Craft::$app->getSession()->setError($e->getMessage());
             }

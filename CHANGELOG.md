@@ -1,5 +1,15 @@
 # Release Notes for Altify
 
+# [1.0.0-beta.4] (2024-04-26)
+
+### Features
+
+* Added the possibility to register own generators and translators via events
+
+### Changes
+
+* Refactored Settings and Services a bit for easier integration of the registration events
+
 # [1.0.0-beta.3] (2024-04-25)
 
 ### Changes
@@ -8,13 +18,13 @@
 
 # [1.0.0-beta.2] (2024-04-24)
 
-### Changes
-
-* The plugin is called Altify from now on
-
 ### Features
 
 * Add translation services DeepL, Opus MT and Flan T5 small
+
+### Changes
+
+* The plugin is called Altify from now on
 
 # [1.0.0-beta.1] (2024-02-23)
 

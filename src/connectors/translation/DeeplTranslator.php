@@ -39,5 +39,4 @@ class DeeplTranslator implements TranslatorInterface
 
         return $altText;
     }
-
 }

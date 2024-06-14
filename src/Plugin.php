@@ -16,8 +16,8 @@ use fork\altify\elements\actions\GenerateAltText as GenerateAltTextAction;
 use fork\altify\elements\actions\TranslateAltText as TranslateAltTextAction;
 use fork\altify\jobs\GenerateAltText as GenerateAltTextJob;
 use fork\altify\models\Settings;
-use fork\altify\services\AltTextGeneration;
-use fork\altify\services\Translation;
+use fork\altify\services\Generator;
+use fork\altify\services\Translator;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
@@ -32,9 +32,9 @@ use yii\base\InvalidConfigException;
  * @author Fork <obj@fork.de>
  * @copyright Fork
  * @license MIT
- * @property-read AltTextGeneration $altTextGeneration
+ * @property-read Generator $generator
  * @property-read Settings $settings
- * @property-read Translation $translation
+ * @property-read Translator $translator
  */
 class Plugin extends BasePlugin
 {
@@ -46,8 +46,8 @@ class Plugin extends BasePlugin
     {
         return [
             'components' => [
-                'altTextGeneration' => AltTextGeneration::class,
-                'translation' => Translation::class
+                'generator' => Generator::class,
+                'translator' => Translator::class
             ],
         ];
     }
